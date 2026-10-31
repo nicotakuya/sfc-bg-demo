@@ -65,6 +65,12 @@ void bg3print(u8 x, u8 y, u8 *ptr)
 //    WaitForVBlank();
 }
 
+// カラーコード算出
+u16 rgb15bit(u16 r,u16 g,u16 b)
+{
+    return((b << 10)+(g << 5)+r);
+}
+
 //----
 int main(void)
 {
@@ -130,13 +136,17 @@ int main(void)
     );
 
     // テキストのパレットを変更
+/*
     u8 *ptr = (u8 *)&palfont;
     for(i=0; i<4; i++){
-        u16 color;  // 15bit カラー
+        u16 color;
         color = (u16)*ptr++;
         color += (u16)*ptr++ << 8;
         setPaletteColor(i+(PAL_TXT*16),color);
     }
+*/
+// gfx4snesがうまく動かない。強制的にパレット変更。
+    setPaletteColor(3+(PAL_TXT*16),rgb15bit(31,31,31));
 
     bg3print(8,  8, "BG DEMO");
     bg3print(8, 10, " for SUPER FAMICOM");
