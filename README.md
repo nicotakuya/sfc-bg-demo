@@ -6,3 +6,7 @@ PVSnesLibで作ったスーパーファミコン用のBG表示デモ。モード
 
 ## ファイル説明
 ・bgdemo.sfc：ROMイメージのファイル。
+・build.bat：makeを呼ぶだけのバッチファイル。
+・main.c：メインのソースです。
+・bmpconv.py：BMPからpic/pal/mapを生成するツールです。gfx4snesの代わりとして使っています。
+hdr.asmは不要になりました。
