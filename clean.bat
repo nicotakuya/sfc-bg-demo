@@ -3,10 +3,8 @@ echo delete files(clean.bat)
 del hdr.asm
 del *.obj
 del *.sym
-del *.map
-del *.pic
-del *.pal
 del *.log
+del *.inc
 del *.as
 del linkfile
 del soundbank.*

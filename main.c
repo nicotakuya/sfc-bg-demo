@@ -136,7 +136,6 @@ int main(void)
     );
 
     // テキストのパレットを変更
-/*
     u8 *ptr = (u8 *)&palfont;
     for(i=0; i<4; i++){
         u16 color;
@@ -144,9 +143,9 @@ int main(void)
         color += (u16)*ptr++ << 8;
         setPaletteColor(i+(PAL_TXT*16),color);
     }
-*/
-// gfx4snesがうまく動かない。強制的にパレット変更。
-    setPaletteColor(3+(PAL_TXT*16),rgb15bit(31,31,31));
+
+    // 強制的にパレット変更。
+    // setPaletteColor(3+(PAL_TXT*16),rgb15bit(31,31,31));
 
     bg3print(8,  8, "BG DEMO");
     bg3print(8, 10, " for SUPER FAMICOM");
