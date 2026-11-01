@@ -9,8 +9,10 @@ PVSnesLibで作ったスーパーファミコン用のBG表示デモ。モード
 
 ・build.bat：makeを呼ぶだけのバッチファイル。
 
+・makefile：メイクファイルです。
+
 ・main.c：メインのソースです。
 
-・bmpconv.py：BMPからpic/pal/mapを生成するツールです。gfx4snesの代わりとして使っています。
+・bmpconv.py：BMPファイルからpic/pal/mapファイルを生成する変換ツールです。Pythonで動きます。gfx4snesの代わりとして使っています。
 
 ・hdr.asmは不要になりました。
