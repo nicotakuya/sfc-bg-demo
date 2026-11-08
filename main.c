@@ -23,11 +23,11 @@ extern char tilfont_end, palfont_end;
 
 // VRAM 0x0000-7FFF
 #define VRAM_TXTMAP   0x2800 // テキスト タイルマップ
-#define VRAM_TXTPTN   0x2000 // テキスト パターン
+#define VRAM_TXTPTN   0x2000 // テキスト タイル画像
 #define VRAM_BACKMAP  0x3000 // 背景(手前) タイルマップ
-#define VRAM_BACKPTN  0x4000 // 背景(手前) パターン
+#define VRAM_BACKPTN  0x4000 // 背景(手前) タイル画像
 #define VRAM_BACK2MAP 0x5000 // 背景(奥) タイルマップ
-#define VRAM_BACK2PTN 0x6000 // 背景(奥) パターン
+#define VRAM_BACK2PTN 0x6000 // 背景(奥) タイル画像
 
 u8 vramwork[32];
 char tempstr[6];
@@ -65,12 +65,6 @@ void bg3print(u8 x, u8 y, u8 *ptr)
 //    WaitForVBlank();
 }
 
-// カラーコード算出
-u16 rgb15bit(u16 r,u16 g,u16 b)
-{
-    return((b << 10)+(g << 5)+r);
-}
-
 //----
 int main(void)
 {
@@ -80,13 +74,13 @@ int main(void)
     // 背景(手前)
     bgInitTileSet(
         BGN_BACK,   // BG番号
-        &patterns,  // パターンデータ
+        &patterns,  // タイル画像データ
         &palette,   // パレットデータ
         PAL_BACK,   // パレット番号
-        (&patterns_end - &patterns),   // パターンのサイズ
+        (&patterns_end - &patterns),   // タイル画像のサイズ
         (&palette_end - &palette),     // パレットのサイズ
         BG_16COLORS,   // used for correctry
-        VRAM_BACKPTN   // パターンのアドレス
+        VRAM_BACKPTN   // タイル画像のアドレス
     );
 
     // 背景(手前)
@@ -101,13 +95,13 @@ int main(void)
     // 背景(奥)
     bgInitTileSet(
         BGN_BACK2,  // BG番号
-        &patterns2, // パターンのデータ
+        &patterns2, // タイル画像のデータ
         &palette2,  // パレットのデータ
         PAL_BACK2,  // パレット番号
-        (&patterns2_end - &patterns2),   // パターンのサイズ
+        (&patterns2_end - &patterns2),   // タイル画像のサイズ
         (&palette2_end - &palette2),     // パレットのサイズ
         BG_16COLORS,   //
-        VRAM_BACK2PTN     // パターンのアドレス
+        VRAM_BACK2PTN     // タイル画像のアドレス
     );
 
     // 背景(奥)
@@ -120,10 +114,10 @@ int main(void)
     );
 
     // テキストの初期化
-    bgSetGfxPtr(BGN_TXT, VRAM_TXTPTN); // パターンのアドレス
+    bgSetGfxPtr(BGN_TXT, VRAM_TXTPTN); // タイル画像のアドレス
     bgSetMapPtr(BGN_TXT, VRAM_TXTMAP, SC_32x32); // タイルマップのアドレス
 
-    // テキストのパターン
+    // テキストのタイル画像
     bgInitTileSet(
         BGN_TXT,
         &tilfont,
@@ -143,9 +137,6 @@ int main(void)
         color += (u16)*ptr++ << 8;
         setPaletteColor(i+(PAL_TXT*16),color);
     }
-
-    // 強制的にパレット変更。
-    // setPaletteColor(3+(PAL_TXT*16),rgb15bit(31,31,31));
 
     bg3print(8,  8, "BG DEMO");
     bg3print(8, 10, " for SUPER FAMICOM");
